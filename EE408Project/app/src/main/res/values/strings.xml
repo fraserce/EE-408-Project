@@ -2,6 +2,4 @@
     <string name="app_name">EE408Project</string>
     <string name="tab_text_1">Form</string>
     <string name="tab_text_2">Table</string>
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
 </resources>

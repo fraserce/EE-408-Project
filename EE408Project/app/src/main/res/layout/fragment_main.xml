@@ -20,27 +20,4 @@
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintTop_creator="1" />
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/first_name"
-        app:layout_constraintStart_toStartOf="@+id/section_label"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/last_name"
-        tools:layout_editor_absoluteX="164dp"
-        tools:layout_editor_absoluteY="50dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
