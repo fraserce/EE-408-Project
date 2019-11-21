@@ -13,7 +13,7 @@ public class Person {
     public String country;
 
     // Card Details
-    public String type;
+    public String card_type;
     public String number;
     public String cvc;
     public String expiration_m;
@@ -42,7 +42,7 @@ public class Person {
     // This is a storage container class - information is readily available and editable using . notation, but functions added for ease of manipulation
 
     public void updateCard(String type, String num, String cvc, String expiration_m, String expiration_y){
-        this.type = type;
+        this.card_type = type;
         this.number = num;
         this.cvc = cvc;
         this.expiration_m = expiration_m;
