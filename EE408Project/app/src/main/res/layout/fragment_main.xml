@@ -52,11 +52,11 @@
 
     <EditText
         android:id="@+id/card_num"
-        android:layout_width="285dp"
+        android:layout_width="286dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="@string/card_num"
         android:importantForAutofill="no"
@@ -70,24 +70,128 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="@string/cvc"
+        android:importantForAutofill="no"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_num"
+        app:layout_constraintTop_toBottomOf="@+id/card_num" />
+
+    <EditText
+        android:id="@+id/month"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="@string/month"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/cvc"
+        app:layout_constraintTop_toBottomOf="@+id/card_num" />
+
+    <EditText
+        android:id="@+id/year"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="@string/year"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/month"
+        app:layout_constraintTop_toBottomOf="@+id/card_num" />
+
+    <Spinner
+        android:id="@+id/card_type_spinner"
+        android:layout_width="76dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:entries="@array/card_types"
+        app:layout_constraintStart_toEndOf="@+id/year"
+        app:layout_constraintTop_toBottomOf="@+id/card_num" />
+
+    <EditText
+        android:id="@+id/address_1"
+        android:layout_width="286dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="@string/address_1"
+        android:importantForAutofill="no"
+        android:inputType="textPostalAddress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvc" />
+
+    <EditText
+        android:id="@+id/address_2"
+        android:layout_width="286dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="@string/address_2"
+        android:importantForAutofill="no"
+        android:inputType="textPostalAddress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address_1" />
+
+    <EditText
+        android:id="@+id/city"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="@string/city"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address_2" />
+
+    <Spinner
+        android:id="@+id/state_spinner"
+        android:layout_width="77dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:entries="@array/states"
+        app:layout_constraintStart_toEndOf="@+id/city"
+        app:layout_constraintTop_toBottomOf="@+id/address_2" />
+
+    <EditText
+        android:id="@+id/zip_code"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="@string/zip_code"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/city"
         android:importantForAutofill="no" />
 
     <Spinner
-        android:id="@+id/month_spinner"
-        android:layout_width="wrap_content"
+        android:id="@+id/country_spinner"
+        android:layout_width="77dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginLeft="26dp"
-        android:layout_marginTop="20dp"
-        android:entries="@array/months"
-        android:spinnerMode="dropdown"
-        app:layout_constraintStart_toEndOf="@+id/cvc"
-        app:layout_constraintTop_toBottomOf="@+id/card_num" />
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toEndOf="@+id/zip_code"
+        app:layout_constraintTop_toBottomOf="@+id/state_spinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
