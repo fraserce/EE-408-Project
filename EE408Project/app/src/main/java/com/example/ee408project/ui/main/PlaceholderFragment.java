@@ -22,7 +22,6 @@ public class PlaceholderFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private PageViewModel pageViewModel;
-    private Tab1Fragment formFragment;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -58,7 +57,4 @@ public class PlaceholderFragment extends Fragment {
         return root;
     }
 
-    public void insert(View view) {
-        formFragment.insert();
-    }
 }
