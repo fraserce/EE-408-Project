@@ -55,7 +55,7 @@ public class DBManager extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String sqlInsert = "insert into " + TABLE_PEOPLE;
-        sqlInsert += " values(" + person.f_name + "', '" + person.l_name + "', '";
+        sqlInsert += " values('" + person.f_name + "', '" + person.l_name + "', '";
         sqlInsert += person.street_1 + "', '" + person.street_2 + "', '" + person.city + "', '";
         sqlInsert += person.state + "', '" + person.zip + "', '" + person.country + "', '";
         sqlInsert += person.card_type + "', '" + person.number + "', '" + person.cvc + "', '";
