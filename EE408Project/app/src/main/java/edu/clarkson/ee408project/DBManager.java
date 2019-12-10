@@ -16,6 +16,7 @@ public class DBManager extends SQLiteOpenHelper {
 
 
     private static final String NAME = "firstname";
+    private static final String ID = "firstname";
     private static final String ZIP = "zip";
     private static final String COUNTRY_CODE = "country_code";
     private static final String P_NUMBER = "phone_number";
@@ -89,6 +90,18 @@ public class DBManager extends SQLiteOpenHelper {
         db.close();
         return person;
 
+    }
+
+    public void updateById(int personId, String name, double cardNum) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String sqlUpdate = "update " + TABLE_PEOPLE;
+        sqlUpdate += " set " + NAME + " = '" + name + "', ";
+        sqlUpdate += NUMBER + " = '" + cardNum + "'";
+        sqlUpdate += " where " + personId + " = " + ID;
+
+        db.execSQL( sqlUpdate );
+        db.close( );
     }
 
     //TODO: Add a way to check if a credit card number already exists
