@@ -1,6 +1,7 @@
 package edu.clarkson.ee408project;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 
 import com.braintreepayments.cardform.OnCardFormSubmitListener;
@@ -14,11 +15,19 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.text.Selection;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
+
+import java.text.NumberFormat;
+import java.util.ArrayList;
+
 import edu.clarkson.ee408project.GetCardsActivity;
 
 public class MainActivity extends AppCompatActivity implements OnCardFormSubmitListener, CardEditText.OnCardTypeChangedListener {
@@ -33,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements OnCardFormSubmitL
     private CardType cType;
 
     private DBManager db;
+
+    private ScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

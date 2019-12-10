@@ -56,7 +56,7 @@ public class GetCardsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
+    /*
     public void updateView( ) {
         ArrayList<PreviewPerson> people = dbManager.getPreviewPeople();
         if( people.size( ) > 0 ) {
@@ -119,6 +119,45 @@ public class GetCardsActivity extends AppCompatActivity {
         }
     }
 
+     */
+    public void updateView( ) {
+        ArrayList<PreviewPerson> people = dbManager.getPreviewPeople();
+        if (people.size() > 0) {
+            // remove subviews inside scrollView if necessary
+            ScrollView scrollView = new ScrollView( this );
+            scrollView.removeAllViewsInLayout();
+
+            // set up the grid layout
+            GridLayout grid = new GridLayout(this);
+            grid.setRowCount((people.size() + 1));
+            grid.setColumnCount(1);
+
+            // create array of buttons, 1 per row
+            PeopleButton[] buttons = new PeopleButton[people.size()];
+            ButtonHandler bh = new ButtonHandler();
+
+            // fill the grid
+            int i = 0;
+            Point size = new Point( );
+            int buttonWidth = size.x / 2;
+
+            for (PreviewPerson person : people) {
+                // create the button
+                buttons[i] = new PeopleButton(this, person);
+                buttons[i].setText(person.name + "\n" + person.number);
+
+                // set up event handling
+                buttons[i].setOnClickListener(bh);
+
+                // add the button to grid
+                grid.addView(buttons[i], buttonWidth,
+                        GridLayout.LayoutParams.WRAP_CONTENT);
+                i++;
+            }
+            scrollView.addView(grid);
+        }
+    }
+
     private class ButtonHandler implements View.OnClickListener {
         public void onClick( View v ) {
             // retrieve name and price of the candy
@@ -126,12 +165,12 @@ public class GetCardsActivity extends AppCompatActivity {
             EditText nameET = ( EditText ) findViewById( personId );
             EditText numberET = ( EditText ) findViewById( personId );
             String name = nameET.getText( ).toString( );
-            String priceString = numberET.getText( ).toString( );
+            String numString = numberET.getText( ).toString( );
 
             // update candy in database
             try {
-                double price = Double.parseDouble( priceString );
-                dbManager.updateById( personId, name, price );
+                double cardNum = Double.parseDouble( numString );
+                dbManager.updateCardByName( name, cardNum );
                 Toast.makeText( GetCardsActivity.this, "Entry updated",
                         Toast.LENGTH_SHORT ).show( );
 
