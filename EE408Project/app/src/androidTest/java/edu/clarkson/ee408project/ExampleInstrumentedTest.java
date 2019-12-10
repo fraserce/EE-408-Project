@@ -1,4 +1,4 @@
-package com.example.ee408project;
+package edu.clarkson.ee408project;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.ee408project", appContext.getPackageName());
+        assertEquals("edu.clarkson.ee408project", appContext.getPackageName());
     }
 }

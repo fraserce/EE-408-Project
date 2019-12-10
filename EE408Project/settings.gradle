@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='EE408Project'
+rootProject.name='EE408 Project'
