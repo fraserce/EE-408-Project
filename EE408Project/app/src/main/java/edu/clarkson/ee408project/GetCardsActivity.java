@@ -56,7 +56,7 @@ public class GetCardsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    /*
+
     public void updateView( ) {
         ArrayList<PreviewPerson> people = dbManager.getPreviewPeople();
         if( people.size( ) > 0 ) {
@@ -64,7 +64,7 @@ public class GetCardsActivity extends AppCompatActivity {
             ScrollView scrollView = new ScrollView( this );
             GridLayout grid = new GridLayout( this );
             grid.setRowCount( people.size( ) );
-            grid.setColumnCount( 4 );
+            grid.setColumnCount( 1 );
 
             // create arrays of components
             TextView[] ids = new TextView[people.size( )];
@@ -119,7 +119,7 @@ public class GetCardsActivity extends AppCompatActivity {
         }
     }
 
-     */
+     /*
     public void updateView( ) {
         ArrayList<PreviewPerson> people = dbManager.getPreviewPeople();
         if (people.size() > 0) {
@@ -157,6 +157,8 @@ public class GetCardsActivity extends AppCompatActivity {
             scrollView.addView(grid);
         }
     }
+
+      */
 
     private class ButtonHandler implements View.OnClickListener {
         public void onClick( View v ) {
