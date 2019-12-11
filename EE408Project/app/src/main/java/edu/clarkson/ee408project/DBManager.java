@@ -62,7 +62,7 @@ public class DBManager extends SQLiteOpenHelper {
     // Returns a list of "PreviewPerson" objects consisting of people's names and credit number
     public ArrayList<PreviewPerson> getPreviewPeople(){
         try{
-            String sqlQuery = "select " + NAME + "," + NUMBER + "from " + TABLE_PEOPLE;
+            String sqlQuery = "select " + NAME + "," + NUMBER + " from " + TABLE_PEOPLE;
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor cursor = db.rawQuery(sqlQuery, null);
             ArrayList<PreviewPerson> people = new ArrayList<>();
@@ -79,6 +79,25 @@ public class DBManager extends SQLiteOpenHelper {
         }
 
     }
+    public ArrayList<Person> getPeople(){
+        try{
+            String sqlQuery = "select * from " + TABLE_PEOPLE;
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.rawQuery(sqlQuery, null);
+            ArrayList<Person> people = new ArrayList<>();
+            while( cursor.moveToNext()){
+                Person currentPerson = new Person(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
+                people.add(currentPerson);
+            }
+            cursor.close();
+            db.close();
+            return people;
+        }catch (SQLiteException e){
+            ArrayList<Person> people = new ArrayList<>();
+            return people;
+        }
+
+    }
 
     // Returns a full "Person" object based on their credit card number - this should be unique
     public Person getPersonByCard(String cardNum){
@@ -87,7 +106,7 @@ public class DBManager extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery( sqlQuery, null);
         Person person = null;
         if (cursor.moveToFirst()){
-            person = new Person(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3));
+            person = new Person(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
             person.updateCard(cursor.getString(4),cursor.getString(5),cursor.getString(6),cursor.getString(7),cursor.getString(8));
 
 
@@ -98,26 +117,6 @@ public class DBManager extends SQLiteOpenHelper {
 
     }
 
-    public void updateCardByName(String name, double cardNum) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String sqlUpdate = "update " + TABLE_PEOPLE;
-        sqlUpdate += NUMBER + " = '" + cardNum + "'";
-        sqlUpdate += " where " + name + " = " + NAME;
-
-        db.execSQL( sqlUpdate );
-        db.close( );
-    }
-    public void updateNameByCard(String name, double cardNum) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String sqlUpdate = "update " + TABLE_PEOPLE;
-        sqlUpdate += " set " + NAME + " = '" + name + "', ";
-        sqlUpdate += " where " + NUMBER + " = " + cardNum;
-
-        db.execSQL( sqlUpdate );
-        db.close( );
-    }
 
     //TODO: Add a way to check if a credit card number already exists
 

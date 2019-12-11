@@ -49,16 +49,21 @@ public class GetCardsActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_newCard) {
-            Intent addCardIntent = new Intent(this, MainActivity.class);
-            this.startActivity(addCardIntent);
+            this.finish();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    private void PopUp() {
+
+        PopUp popup = new PopUp(this);
+        popup.show();
+    }
+
     public void updateView( ) {
-        ArrayList<PreviewPerson> people = dbManager.getPreviewPeople();
+        ArrayList<Person> people = dbManager.getPeople();
         if( people.size( ) > 0 ) {
             // create ScrollView and GridLayout
             ScrollView scrollView = new ScrollView( this );
@@ -79,25 +84,21 @@ public class GetCardsActivity extends AppCompatActivity {
 
             int i = 0;
 
-            for ( PreviewPerson person : people ) {
+            for ( Person person : people ) {
                 // create the TextView for the entry
                 ids[i] = new TextView( this );
                 ids[i].setGravity( Gravity.CENTER );
-                ids[i].setText( "" + person.name );
+                ids[i].setText( person.name );
 
                 // create the two EditTexts for the person's name and card number
                 namesAndNumbers[i][0] = new EditText( this );
                 namesAndNumbers[i][1] = new EditText( this );
-                namesAndNumbers[i][0].setText( person.name );
-                namesAndNumbers[i][1].setText( "" + person.number);
-                namesAndNumbers[i][1].setInputType( InputType.TYPE_CLASS_NUMBER );
-                namesAndNumbers[i][0].setId( Integer.parseInt(person.number) );
-                namesAndNumbers[i][1].setId( Integer.parseInt(person.number) );
+                namesAndNumbers[i][0].setText( "Name: " + person.name );
+                namesAndNumbers[i][1].setText( "Card Number: " + person.number);
 
                 // create the button
                 buttons[i] = new Button( this );
-                buttons[i].setText( "Update" );
-                buttons[i].setId( Integer.parseInt(person.number) );
+                buttons[i].setText( "View Full Entry" );
 
                 // set up event handling
                 buttons[i].setOnClickListener( bh );
@@ -105,11 +106,11 @@ public class GetCardsActivity extends AppCompatActivity {
                 // add the elements to grid
                 grid.addView( ids[i], width / 10,
                         ViewGroup.LayoutParams.WRAP_CONTENT );
-                grid.addView( namesAndNumbers[i][0], ( int ) ( width * .4 ),
+                grid.addView( namesAndNumbers[i][0], ( int ) ( width ),
                         ViewGroup.LayoutParams.WRAP_CONTENT );
-                grid.addView( namesAndNumbers[i][1], ( int ) ( width * .15 ),
+                grid.addView( namesAndNumbers[i][1], ( int ) ( width ),
                         ViewGroup.LayoutParams.WRAP_CONTENT );
-                grid.addView( buttons[i], ( int ) ( width * .35 ),
+                grid.addView( buttons[i], ( int ) ( width  ),
                         ViewGroup.LayoutParams.WRAP_CONTENT );
 
                 i++;
@@ -119,70 +120,10 @@ public class GetCardsActivity extends AppCompatActivity {
         }
     }
 
-     /*
-    public void updateView( ) {
-        ArrayList<PreviewPerson> people = dbManager.getPreviewPeople();
-        if (people.size() > 0) {
-            // remove subviews inside scrollView if necessary
-            ScrollView scrollView = new ScrollView( this );
-            scrollView.removeAllViewsInLayout();
-
-            // set up the grid layout
-            GridLayout grid = new GridLayout(this);
-            grid.setRowCount((people.size() + 1));
-            grid.setColumnCount(1);
-
-            // create array of buttons, 1 per row
-            PeopleButton[] buttons = new PeopleButton[people.size()];
-            ButtonHandler bh = new ButtonHandler();
-
-            // fill the grid
-            int i = 0;
-            Point size = new Point( );
-            int buttonWidth = size.x / 2;
-
-            for (PreviewPerson person : people) {
-                // create the button
-                buttons[i] = new PeopleButton(this, person);
-                buttons[i].setText(person.name + "\n" + person.number);
-
-                // set up event handling
-                buttons[i].setOnClickListener(bh);
-
-                // add the button to grid
-                grid.addView(buttons[i], buttonWidth,
-                        GridLayout.LayoutParams.WRAP_CONTENT);
-                i++;
-            }
-            scrollView.addView(grid);
-        }
-    }
-
-      */
-
     private class ButtonHandler implements View.OnClickListener {
         public void onClick( View v ) {
-            // retrieve name and price of the candy
-            int personId = v.getId( );
-            EditText nameET = ( EditText ) findViewById( personId );
-            EditText numberET = ( EditText ) findViewById( personId );
-            String name = nameET.getText( ).toString( );
-            String numString = numberET.getText( ).toString( );
 
-            // update candy in database
-            try {
-                double cardNum = Double.parseDouble( numString );
-                dbManager.updateCardByName( name, cardNum );
-                Toast.makeText( GetCardsActivity.this, "Entry updated",
-                        Toast.LENGTH_SHORT ).show( );
-
-                // update screen
-                updateView( );
-            } catch( NumberFormatException nfe ) {
-                Toast.makeText( GetCardsActivity.this,
-                        "Error", Toast.LENGTH_LONG ).show( );
-            }
-
+            PopUp();
         }
     }
 }

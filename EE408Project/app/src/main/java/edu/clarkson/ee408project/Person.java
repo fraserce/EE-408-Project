@@ -31,6 +31,18 @@ public class Person {
         this.zip = zip;
     }
 
+    public Person(String n, String zip, String country_code, String p_number, String type, String num, String cvc, String expm, String expy){
+        this.name = n;
+        this.country_code = country_code;
+        this.p_number = p_number;
+        this.zip = zip;
+        this.card_type = type;
+        this.number = num;
+        this.cvc = cvc;
+        this.expiration_m = expm;
+        this.expiration_y = expy;
+    }
+
     // This is a storage container class - information is readily available and editable using . notation, but functions added for ease of manipulation
 
     public void updateCard(String type, String num, String cvc, String expm, String expy){
