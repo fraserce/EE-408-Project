@@ -3,6 +3,7 @@ package edu.clarkson.ee408project;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
@@ -60,17 +61,23 @@ public class DBManager extends SQLiteOpenHelper {
 
     // Returns a list of "PreviewPerson" objects consisting of people's names and credit number
     public ArrayList<PreviewPerson> getPreviewPeople(){
-        String sqlQuery = "select " + NAME + "," + NUMBER + "from " + TABLE_PEOPLE;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(sqlQuery, null);
-        ArrayList<PreviewPerson> people = new ArrayList<>();
-        while( cursor.moveToNext()){
-            PreviewPerson currentPerson = new PreviewPerson(cursor.getString(0), cursor.getString(1));
-            people.add(currentPerson);
+        try{
+            String sqlQuery = "select " + NAME + "," + NUMBER + "from " + TABLE_PEOPLE;
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.rawQuery(sqlQuery, null);
+            ArrayList<PreviewPerson> people = new ArrayList<>();
+            while( cursor.moveToNext()){
+                PreviewPerson currentPerson = new PreviewPerson(cursor.getString(0), cursor.getString(1));
+                people.add(currentPerson);
+            }
+            cursor.close();
+            db.close();
+            return people;
+        }catch (SQLiteException e){
+            ArrayList<PreviewPerson> people = new ArrayList<>();
+            return people;
         }
-        cursor.close();
-        db.close();
-        return people;
+
     }
 
     // Returns a full "Person" object based on their credit card number - this should be unique
