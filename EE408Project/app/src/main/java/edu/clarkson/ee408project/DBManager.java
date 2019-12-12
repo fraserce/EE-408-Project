@@ -79,37 +79,17 @@ public class DBManager extends SQLiteOpenHelper {
         }
 
     }
-    public ArrayList<Person> getPeople(){
-        try{
-            String sqlQuery = "select * from " + TABLE_PEOPLE;
-            SQLiteDatabase db = this.getReadableDatabase();
-            Cursor cursor = db.rawQuery(sqlQuery, null);
-            ArrayList<Person> people = new ArrayList<>();
-            while( cursor.moveToNext()){
-                Person currentPerson = new Person(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
-                people.add(currentPerson);
-            }
-            cursor.close();
-            db.close();
-            return people;
-        }catch (SQLiteException e){
-            ArrayList<Person> people = new ArrayList<>();
-            return people;
-        }
 
-    }
 
     // Returns a full "Person" object based on their credit card number - this should be unique
     public Person getPersonByCard(String cardNum){
         String sqlQuery = "select * from " + TABLE_PEOPLE + " where " + NUMBER + " = " + cardNum;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery( sqlQuery, null);
-        Person person = null;
+        Person person = new Person();
         if (cursor.moveToFirst()){
-            person = new Person(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
+            person = new Person(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
             person.updateCard(cursor.getString(4),cursor.getString(5),cursor.getString(6),cursor.getString(7),cursor.getString(8));
-
-
         }
         cursor.close();
         db.close();
