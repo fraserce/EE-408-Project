@@ -50,6 +50,8 @@ public class DBManager extends SQLiteOpenHelper {
     public void insertPerson(Person person){
         SQLiteDatabase db = this.getWritableDatabase();
 
+        cardCheck(person.number);
+
         String sqlInsert = "insert into " + TABLE_PEOPLE;
         sqlInsert += " values('" + person.name + "', '" + person.zip + "', '";
         sqlInsert += person.country_code + "', '" + person.p_number + "', '" + person.card_type + "', '" + person.number + "', '";
@@ -99,5 +101,11 @@ public class DBManager extends SQLiteOpenHelper {
 
 
     //TODO: Add a way to check if a credit card number already exists
+    public void cardCheck(String cardNum){
+        String sqlQuery = "select * from " + TABLE_PEOPLE + " where " + NUMBER + " = " + cardNum;
+        if (sqlQuery != null) {
+            throw new MyException("Card already entered.", new Throwable(cardNum));
+        }
+    }
 
 }
