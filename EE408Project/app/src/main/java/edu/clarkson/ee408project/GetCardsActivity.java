@@ -3,18 +3,12 @@ package edu.clarkson.ee408project;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -56,14 +50,8 @@ public class GetCardsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void PopUp() {
-
-        PopUp popup = new PopUp(this);
-        popup.show();
-    }
-
     public void updateView( ) {
-        ArrayList<Person> people = dbManager.getPeople();
+        ArrayList<PreviewPerson> people = dbManager.getPreviewPeople();
         if( people.size( ) > 0 ) {
             // create ScrollView and GridLayout
             ScrollView scrollView = new ScrollView( this );
@@ -72,9 +60,7 @@ public class GetCardsActivity extends AppCompatActivity {
             grid.setColumnCount( 1 );
 
             // create arrays of components
-            TextView[] ids = new TextView[people.size( )];
-            EditText[][] namesAndNumbers = new EditText[people.size( )][2];
-            Button[] buttons = new Button[people.size( )];
+            PeopleButton[] buttons = new PeopleButton[people.size( )];
             ButtonHandler bh = new ButtonHandler( );
 
             // retrieve width of screen
@@ -84,32 +70,16 @@ public class GetCardsActivity extends AppCompatActivity {
 
             int i = 0;
 
-            for ( Person person : people ) {
-                // create the TextView for the entry
-                ids[i] = new TextView( this );
-                ids[i].setGravity( Gravity.CENTER );
-                ids[i].setText( person.name );
-
-                // create the two EditTexts for the person's name and card number
-                namesAndNumbers[i][0] = new EditText( this );
-                namesAndNumbers[i][1] = new EditText( this );
-                namesAndNumbers[i][0].setText( "Name: " + person.name );
-                namesAndNumbers[i][1].setText( "Card Number: " + person.number);
+            for ( PreviewPerson person : people ) {
 
                 // create the button
-                buttons[i] = new Button( this );
-                buttons[i].setText( "View Full Entry" );
+                buttons[i] = new PeopleButton( this, person );
+                buttons[i].setText("\nName: " + person.name + "\nCard Number: " + person.number + "\n" );
 
                 // set up event handling
                 buttons[i].setOnClickListener( bh );
 
                 // add the elements to grid
-                grid.addView( ids[i], width / 10,
-                        ViewGroup.LayoutParams.WRAP_CONTENT );
-                grid.addView( namesAndNumbers[i][0], ( int ) ( width ),
-                        ViewGroup.LayoutParams.WRAP_CONTENT );
-                grid.addView( namesAndNumbers[i][1], ( int ) ( width ),
-                        ViewGroup.LayoutParams.WRAP_CONTENT );
                 grid.addView( buttons[i], ( int ) ( width  ),
                         ViewGroup.LayoutParams.WRAP_CONTENT );
 
@@ -120,10 +90,15 @@ public class GetCardsActivity extends AppCompatActivity {
         }
     }
 
-    private class ButtonHandler implements View.OnClickListener {
+    public class ButtonHandler implements View.OnClickListener {
         public void onClick( View v ) {
+            String personId = ((PeopleButton) v).getCardNum();
+            Person person = dbManager.getPersonByCard(personId);
 
-            PopUp();
+            Intent intent = new Intent(getBaseContext(), PopUp.class);
+            intent.putExtra("PERSONID", personId);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getBaseContext().startActivity(intent);
         }
     }
 }
