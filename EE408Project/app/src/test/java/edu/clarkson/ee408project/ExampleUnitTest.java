@@ -1,4 +1,4 @@
-package com.example.ee408project;
+package edu.clarkson.ee408project;
 
 import org.junit.Test;
 
