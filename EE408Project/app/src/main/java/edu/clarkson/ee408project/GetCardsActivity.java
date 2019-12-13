@@ -52,9 +52,10 @@ public class GetCardsActivity extends AppCompatActivity {
 
     public void updateView( ) {
         ArrayList<PreviewPerson> people = dbManager.getPreviewPeople();
+        ScrollView finalScroll = findViewById(R.id.testScroll);
+        ScrollView scrollView = new ScrollView(this);
         if( people.size( ) > 0 ) {
             // create ScrollView and GridLayout
-            ScrollView scrollView = new ScrollView( this );
             GridLayout grid = new GridLayout( this );
             grid.setRowCount( people.size( ) );
             grid.setColumnCount( 1 );
@@ -85,8 +86,8 @@ public class GetCardsActivity extends AppCompatActivity {
 
                 i++;
             }
-            scrollView.addView( grid );
-            setContentView( scrollView );
+            finalScroll.addView( grid );
+            //finalScroll.addView(scrollView);
         }
     }
 

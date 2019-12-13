@@ -1,6 +1,7 @@
 package edu.clarkson.ee408project;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
 import android.graphics.Point;
 import android.os.Bundle;
 
@@ -92,11 +93,17 @@ public class MainActivity extends AppCompatActivity implements OnCardFormSubmitL
     @Override
     public void onCardFormSubmit() {
         if (mCardForm.isValid()) {
-            Toast.makeText(this, R.string.valid, Toast.LENGTH_SHORT).show();
-            db = new DBManager(this);
-            Person person = new Person(mCardForm.getCardholderName(),mCardForm.getPostalCode(),mCardForm.getCountryCode(),mCardForm.getMobileNumber());
-            person.updateCard(cType.toString(),mCardForm.getCardNumber(),mCardForm.getCvv(),mCardForm.getExpirationMonth(),mCardForm.getExpirationYear());
-            db.insertPerson(person);
+            try{
+                Toast.makeText(this, R.string.valid, Toast.LENGTH_SHORT).show();
+                db = new DBManager(this);
+                Person person = new Person(mCardForm.getCardholderName(),mCardForm.getPostalCode(),mCardForm.getCountryCode(),mCardForm.getMobileNumber());
+                person.updateCard(cType.toString(),mCardForm.getCardNumber(),mCardForm.getCvv(),mCardForm.getExpirationMonth(),mCardForm.getExpirationYear());
+                db.insertPerson(person);
+            }catch(SQLiteConstraintException e){
+                mCardForm.setCardNumberError("Card Already Exists");
+                Toast.makeText(this, R.string.cardExists, Toast.LENGTH_SHORT).show();
+            }
+
 
         } else {
             mCardForm.validate();

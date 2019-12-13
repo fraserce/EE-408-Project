@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DBManager extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "creditInfo";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     private static final String TABLE_PEOPLE = "people";
 
@@ -37,7 +37,7 @@ public class DBManager extends SQLiteOpenHelper {
         String create = "create table " + TABLE_PEOPLE + "( " + NAME + " text, ";
         create += ZIP + " text, " + COUNTRY_CODE + " text, " + P_NUMBER + " text, ";
         create += CARD_TYPE + " text, " + NUMBER + " text, ";
-        create += CVC + " text, " + EXPIRATION_M + " text, " + EXPIRATION_Y + " text )";
+        create += CVC + " text, " + EXPIRATION_M + " text, " + EXPIRATION_Y + " text, PRIMARY KEY (" + NUMBER + ") )";
         db.execSQL(create);
     }
 
@@ -49,9 +49,6 @@ public class DBManager extends SQLiteOpenHelper {
     // Takes an object of class "Person" and inserts it into the database
     public void insertPerson(Person person){
         SQLiteDatabase db = this.getWritableDatabase();
-
-        cardCheck(person.number);
-
         String sqlInsert = "insert into " + TABLE_PEOPLE;
         sqlInsert += " values('" + person.name + "', '" + person.zip + "', '";
         sqlInsert += person.country_code + "', '" + person.p_number + "', '" + person.card_type + "', '" + person.number + "', '";
@@ -98,11 +95,4 @@ public class DBManager extends SQLiteOpenHelper {
         return person;
 
     }
-
-
-    //TODO: Add a way to check if a credit card number already exists
-    public void cardCheck(String cardNum){
-
-    }
-
 }

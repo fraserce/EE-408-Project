@@ -31,15 +31,20 @@
 
             </com.google.android.material.appbar.AppBarLayout>
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:context=".GetCardsActivity"
+                tools:showIn="@layout/getcards_main"
+                android:id="@+id/testScroll">
+            </ScrollView>
+
             <TextView
                 android:id="@+id/Buffer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <include
-                layout="@layout/popup_window"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </ScrollView>

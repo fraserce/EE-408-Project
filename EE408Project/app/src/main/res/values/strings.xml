@@ -5,4 +5,5 @@
     <string name="valid">Submitted</string>
     <string name="invalid">Invalid Information</string>
     <string name="getInfo">New Card</string>
+    <string name="cardExists">This card already exists</string>
 </resources>
