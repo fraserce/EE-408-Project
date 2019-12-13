@@ -102,10 +102,7 @@ public class DBManager extends SQLiteOpenHelper {
 
     //TODO: Add a way to check if a credit card number already exists
     public void cardCheck(String cardNum){
-        String sqlQuery = "select * from " + TABLE_PEOPLE + " where " + NUMBER + " = " + cardNum;
-        if (sqlQuery != null) {
-            throw new MyException("Card already entered.", new Throwable(cardNum));
-        }
+
     }
 
 }
